@@ -20,6 +20,80 @@ Queue::Queue(){
 
 Queue::~Queue(){}
 
+void LinkedList::remove(int data){
+	if(isEmpty()){
+		return;
+	}
+	if(HEAD->info=data){
+		removeFromHead();
+		if(HEAD==NULL){
+			TAIL=NULL;
+		}
+	}
+	else{
+		Node* temp= new Node();
+		Node*prev= new Node();
+		temp=HEAD->next;
+		prev=HEAD;
+		
+		while (temp!=NULL){
+			if(temp->info==data){
+				prev->next=temp->next;
+			
+				if(prev->next==NULL){
+				TAIL=prev;
+				}
+			}
+			else{
+				prev=prev->next;
+				temp=temp->next;
+			}
+		}
+	}
+}
+
+void LinkedList::add(int data, Node* &predecessor){
+	Node* newNode= new Node();
+	newNode->info=data;
+	newNode->next=predecessor->next;
+	predecessor->next=newNode;
+}
+bool LinkedList::search(int data){
+	Node* temp;
+	while(temp!=NULL){
+		if(temp->info==data){
+			return true;
+		}
+		else{
+			temp=temp->next;
+		}
+	}
+	return false;
+}
+
+bool LinkedList::isEmpty(){
+	if(HEAD==NULL and TAIL==NULL){
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+bool LinkedList::retrieve(int data, Node* &outputptr){
+	Node* temp=HEAD;
+	while(temp!=NULL && temp->info!=data ){
+		temp=temp->next;
+	}
+	if (temp==NULL){
+		return false;
+	}
+	else{
+		outputptr=temp;
+		return true;
+	}
+}
+
 void LinkedList::addToHead(int data){
 	Node* newNode = new Node();
 	newNode->info= data;
@@ -160,12 +234,21 @@ int Queue::front(){
 
 int main(){
 	LinkedList l;
+	Node* p;
 	Stack s;
 	Queue q;
 	cout<<endl<<endl;
 	cout<<"			***Linked list***"<<endl;
-	l.addToHead(5);l.addToHead(7);l.addToHead(6); l.addToTail(10); l.removeFromHead();
+	l.addToHead(5);l.addToHead(7);l.addToHead(56);l.addToHead(6); l.addToTail(10); l.removeFromHead();l.remove(56);
+	l.retrieve(5,p);
+	l.add(20,p);
 	cout<<"Linked list final traversal: ";l.traverse();
+	if(l.search(6)){
+		std::cout<<"It is present"<<std::endl;
+	}
+	else{
+		std::cout<<"Not present"<<std::endl;
+	}
 	cout<<endl;
 
 	cout<<"Stack Implementation"<<endl;
