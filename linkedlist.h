@@ -24,10 +24,30 @@ class LinkedList {
 class Stack{
 	private:
 	LinkedList l;
+	Node* stack;
+	Node* top;
 	public:
+	Stack();
+	~Stack();
+	bool isEmpty();
 	void push(int data);
 	int pop();
+	int peak();
 
+};
+
+class Queue{
+	private:
+	LinkedList p;
+	Node* queue;
+	public:
+	Queue();
+	~Queue();
+	void enqueue(int data);
+	int dequeue();
+	bool isEmpty();
+	int rear();
+	int front();
 };
 
 
